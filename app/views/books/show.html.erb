@@ -17,6 +17,21 @@
           </td>
           <td><%= link_to @book_show.title, book_path(@book_show) %></td>
           <td><%= @book_show.body %></td>
+          <td>
+            <% if @book_show.favorited_by?(current_user) %>
+        <p>
+          <%= link_to book_favorites_path(@book_show), method: :delete do %>
+            ❤️︎<%= @book_show.favorites.count %>
+          <% end %>
+        </p>
+      <% else %>
+        <p>
+          <%= link_to book_favorites_path(@book_show), method: :post do %>
+            ♡<%= @book_show.favorites.count %>
+          <% end %>
+        </p>
+      <% end %>
+          </td>
 
            <% if @user.id == current_user.id %>
 
@@ -25,7 +40,7 @@
           <% end %>
         </tr>
       </table>
-
+      
       
     </div>
   </div>
