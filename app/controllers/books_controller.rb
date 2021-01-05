@@ -61,7 +61,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.permit(:title, :body)
+    params.require(:book).permit(:title, :body)
   end
   
   def correct_user
@@ -70,5 +70,6 @@ class BooksController < ApplicationController
     redirect_to books_path
     end
   end
+
   
 end
