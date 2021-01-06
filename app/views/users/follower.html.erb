@@ -1,3 +1,5 @@
+<h2>Follower User</h2>
+
 <table class='table'>
   <thead>
     <tr>
@@ -7,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @user.followerseach do |user| %>
       <tr>
         <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
         <td><%= user.name %></td>
