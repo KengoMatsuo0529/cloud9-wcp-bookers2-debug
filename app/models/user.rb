@@ -36,7 +36,7 @@ class User < ApplicationRecord
         @user = User.where("name LIKE?," "#{word}%")
       elsif search == "backward_search"
         @user = User.where("name LIKE?", "%#{word}")
-      elsif search == "perfct_match"
+      elsif search == "perfect_match"
         @user = User.where("#{word}")
       elsif search == "partial_match"
         @user = User.where("name LIKE?", "%#{word}%")
@@ -45,9 +45,5 @@ class User < ApplicationRecord
       end
   end
   
-  def self.search(search,word)
-    if search == "forward_search"
-      @book = Book.where("title LIKE?", )
-  end
   
 end
