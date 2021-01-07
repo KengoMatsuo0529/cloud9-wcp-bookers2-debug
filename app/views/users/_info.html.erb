@@ -18,11 +18,11 @@
   </tr>
 </table>
 
-<% if @user != current_user %>
+<% if user_signed_in? && @user != current_user %>
  <% if current_user.following?(@user) %>
-  <% render "unfollow" %>
+  <% link_to "unfollow", [@user, :follow], method: :delete %>
   <% else %>
-  <% render "follow" %>
+  <% link_to "follow", [@user, :follow], method: :post %>
 <% end %>
 <% end %>
 
