@@ -10,19 +10,19 @@ class User < ApplicationRecord
 
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  has_many :followers, through: :follower, source: :follower
-  has_many :followings, through: :followed, source: :followed
-  
+  has_many :followings, through: :follower, source: :followed
+  has_many :followers, through: :followed, source: :follower
+
   def following?(other_user)
     self.followings.include?(other_user)
   end
-  
+
   def follow(other_user)
-    self.followers.create(followed_id: other_user.id)
+    self.follower.find_or_create_by(followed_id: other_user) #relatioonshipもでるにさくせいするめそっど
   end
-  
+
   def unfollow(other_user)
-    self.followers.find_by(followed_id: other_user.id).destroy
+    self.follower.find_by(followed_id: other_user).destroy
   end
 
   attachment :profile_image, destroy: false
