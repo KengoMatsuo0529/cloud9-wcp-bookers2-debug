@@ -8,6 +8,7 @@
     </div>
     <div class='col-md-8 offset-md-1'>
   		<h2>Book detail</h2>
+
   		<table class='table'>
   		  <tr>
   		    <td><%= link_to user_path(@user) do %>
@@ -19,18 +20,18 @@
           <td><%= @book_show.body %></td>
           <td>
             <% if @book_show.favorited_by?(current_user) %>
-        <p>
-          <%= link_to book_favorites_path(@book_show), method: :delete do %>
-            ❤️︎<%= @book_show.favorites.count %>
-          <% end %>
-        </p>
-      <% else %>
-        <p>
-          <%= link_to book_favorites_path(@book_show), method: :post do %>
-            ♡<%= @book_show.favorites.count %>
-          <% end %>
-        </p>
-      <% end %>
+              <p>
+                <%= link_to book_favorites_path(@book_show), method: :delete do %>
+                  ❤️︎<%= @book_show.favorites.count %>
+                <% end %>
+              </p>
+            <% else %>
+              <p>
+                <%= link_to book_favorites_path(@book_show), method: :post do %>
+                ♡<%= @book_show.favorites.count %>
+                <% end %>
+              </p>
+            <% end %>
           </td>
 
            <% if @user.id == current_user.id %>
@@ -38,31 +39,23 @@
           <td><%= link_to 'Edit', edit_book_path(@book_show), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
           <td><%= link_to 'Destroy', book_path(@book_show), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
           <% end %>
-          <td>コメント数:<%= @book.book_comments.count %></td>
+
+          <td>コメント数:<%= @book_show.book_comments.count %></td>
         </tr>
       </table>
-      <div class='row'>
+      <div id="comments_area">
+       <%= render "book_comments/book_comment",book_show: @book_show %>
+      </div>
+      
+      
+
         <div class="col-md-8">
-          <% @book_show.book_comments.each do |book_comment| %>
-          <%= book_comment.comment %>
-            <% if book_comment.user == current_user %>
-              <%= link_to "削除", book_book_comment_path(book_comment.book, book_comment), method: :delete %>
-            <% end %>
-          <% end %>
-          
-        </div>
-        <div class="col-md-8">
-        <%= form_with(model:[@book_show, @book_comment], local:true) do |f| %>
+        <%= form_with(model:[@book_show, @book_comment], remote: true ) do |f| %>
               <%= f.text_area :comment %>
               <p><%= f.submit "送信" %></p>
         <% end %>
         </div>
       </div>
-      
-      
-      
     </div>
-    
   </div>
-  
 </div>

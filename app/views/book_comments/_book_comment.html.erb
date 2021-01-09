@@ -1,0 +1,10 @@
+ <div class='row'>
+      <div class="col-md-8">
+        <% book_show.book_comments.each do |book_comment| %>
+        <%= book_comment.comment %>
+          <% if book_comment.user == current_user %>
+          <%= link_to "削除", book_book_comment_path(book_comment.book, book_comment), method: :delete, remote: true %>
+          <% end %>
+        <% end %>
+    </div>  
+  </div>
