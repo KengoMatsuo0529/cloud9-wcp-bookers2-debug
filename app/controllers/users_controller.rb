@@ -3,6 +3,15 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update]
 
+  def create
+    if @user.save
+      NotificationMailer.send_confirm_to_user(@user).deliver
+      redirect_to @user
+    else
+      render "new"
+    end
+  end
+
   def show
     @user = User.find(params[:id])
     @books = @user.books
