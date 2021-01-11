@@ -18,7 +18,7 @@
         </div>
         <div class="field">
           <%= f.label :prefecture_name, "都道府県" %><br />
-          <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt:"選択してください"}, class: "form_control" %>
+          <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, {prompt: "選択してください"}, class: "form_control" %>
         </div>
         <div>
           <%= f.label :address_city, "市区町村" %><br />
